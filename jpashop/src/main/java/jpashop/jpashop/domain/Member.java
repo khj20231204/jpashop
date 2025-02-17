@@ -1,9 +1,13 @@
 package jpashop.jpashop.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Member {
@@ -14,7 +18,10 @@ public class Member {
    private Long id;
    private String name;
    private String street;
-   private String zipcode;
+   private String zipcode; 
+
+   @OneToMany(mappedBy= "member")
+   private List<Order> orders = new ArrayList<>();
 
    public Long getId() {
       return this.id;
