@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +24,6 @@ public class Order{
    @Column(name = "ORDERS_ID")
    private Long id;
 
-   @Column(name = "MEMBER_ID")
-   private Long memberId;
    private LocalDateTime orderDate;
 
    @Enumerated(EnumType.STRING)
@@ -34,6 +33,10 @@ public class Order{
    @JoinColumn(name = "MEMBER_ID")
    private Member member;
    
+   @OneToOne
+   @JoinColumn(name = "DELIVERY_ID")
+   private Delivery delivery;
+
    @OneToMany(mappedBy="order")
    private List<OrderItem> orderItems = new ArrayList<>();
    
@@ -48,14 +51,6 @@ public class Order{
    
    public void setId(Long id) {
       this.id = id;
-   }
-
-   public Long getMemberId() {
-      return this.memberId;
-   }
-
-   public void setMemberId(Long memberId) {
-      this.memberId = memberId;
    }
 
    public LocalDateTime getOrderDate() {
